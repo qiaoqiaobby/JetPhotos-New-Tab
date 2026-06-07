@@ -12,7 +12,7 @@
 
 import CONFIG from "./config.js";
 import PHOTO_IDS from "./photo-ids.js";
-import { addCached, clearExpired, blobToBase64, cacheCount } from "./cache.js";
+import { addCached, clearExpired, cacheCount } from "./cache.js";
 
 const ALARM = "prefetch-photos";
 
@@ -59,16 +59,11 @@ async function prefetch() {
         `${CONFIG.DATA_BASE_URL}/photos/${id}.json`,
         CONFIG.FETCH_TIMEOUT_MS
       );
-      let imageDataUrl = null;
-      const imgUrl = metadata.thumb_url || metadata.image_url;
-      try {
-        const imgResp = await fetch(imgUrl, { signal: AbortSignal.timeout(CONFIG.IMAGE_TIMEOUT_MS) });
-        if (imgResp.ok) imageDataUrl = await blobToBase64(await imgResp.blob());
-      } catch (_) {
-        // CORS / network — leave imageDataUrl null; page will use CDN URL directly.
-      }
+      // Cache metadata only. The JetPhotos CDN sends no CORS header, so fetching
+      // image bytes here would fail; the new-tab page paints images via
+      // background-image (no CORS needed) and warms its own HTTP cache.
       await addCached(
-        { metadata, imageDataUrl, imageUrl: metadata.image_url, cachedAt: Date.now() },
+        { metadata, imageDataUrl: null, imageUrl: metadata.image_url, cachedAt: Date.now() },
         CONFIG.CACHE_MAX_ITEMS
       );
     } catch (_) {

@@ -12,7 +12,7 @@ import CONFIG from "./config.js";
 // import CONFIG from "./config.dev.js"; // ← uncomment for local development
 import PHOTO_IDS from "./photo-ids.js";
 import {
-  getCached, addCached, clearExpired, blobToBase64,
+  getCached, addCached, clearExpired,
   getHistory, addToHistory, clearHistory,
   toggleFavorite, isFavorite,
 } from "./cache.js";
@@ -274,18 +274,15 @@ async function prefetchNext(count) {
     try {
       const metadata = await fetchMetadata(id);
       if (!metadata) continue;
-      // Warm the browser HTTP cache regardless of CORS.
+      // Warm the browser HTTP cache so the next photo paints fast. We do NOT
+      // fetch() the image: the JetPhotos CDN sends no Access-Control-Allow-Origin
+      // header, so a cross-origin fetch fails (and logs noisily). <img> loads and
+      // background-image don't need CORS, so warming via Image() is enough.
       const warm = new Image();
+      warm.decoding = "async";
       warm.src = metadata.thumb_url || metadata.image_url;
-      // Best-effort base64 cache (works only if the CDN allows CORS).
-      let imageDataUrl = null;
-      try {
-        const r = await fetch(metadata.thumb_url || metadata.image_url,
-          { signal: AbortSignal.timeout(CONFIG.IMAGE_TIMEOUT_MS) });
-        if (r.ok) imageDataUrl = await blobToBase64(await r.blob());
-      } catch (_) {}
       await addCached(
-        { metadata, imageDataUrl, imageUrl: metadata.image_url, cachedAt: Date.now() },
+        { metadata, imageDataUrl: null, imageUrl: metadata.image_url, cachedAt: Date.now() },
         CONFIG.CACHE_MAX_ITEMS
       );
     } catch (_) {}
