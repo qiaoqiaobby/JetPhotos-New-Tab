@@ -34,6 +34,7 @@ let currentImageUrl = null;
 let isLoading = false;
 let infoTimer = null;
 let loadingTimer = null;
+let enterTimer = null;
 
 // Session back/forward stack (in-memory; ← / → navigate it).
 const sessionStack = [];
@@ -96,16 +97,30 @@ async function renderFromCache(entry) {
 
 async function loadAndRender(metadata, preferUrl) {
   beginLoading();
-  const url = await loadImage(metadata, preferUrl);
-  if (url) {
-    renderPhoto(metadata, url);
-    pushSession(metadata, url);
-  } else {
-    // Metadata is good but every CDN size failed — show placeholder + info.
+  const full = metadata.image_url;
+
+  // Fast first paint: prefer a smaller size (or the cached/preferred one), so the
+  // photo appears quickly; we then upgrade to full-res (blur-up).
+  const fastOrder = uniq([preferUrl, metadata.thumb_url, metadata.image_url, metadata.fallback_url]);
+  const firstUrl = await firstThatDecodes(fastOrder);
+
+  if (!firstUrl) {
     renderPhoto(metadata, PLACEHOLDER);
     pushSession(metadata, PLACEHOLDER);
     toast("Image unavailable — showing details only");
+    return;
   }
+
+  const willUpgrade = !!full && full !== firstUrl;
+  renderPhoto(metadata, firstUrl, { lowres: willUpgrade });
+
+  let finalUrl = firstUrl;
+  if (willUpgrade) {
+    const up = await decodeImage(full, CONFIG.IMAGE_TIMEOUT_MS);
+    if (up) { upgradeActiveBg(full); finalUrl = full; }
+    else { layers[activeLayer].classList.remove("lowres"); } // sharpen the thumb anyway
+  }
+  pushSession(metadata, finalUrl);
 }
 
 // ── Selection ────────────────────────────────────────────────────────
@@ -135,41 +150,51 @@ async function fetchMetadata(photoId) {
 }
 
 // ── Image loading with multi-size degrade ────────────────────────────
-async function loadImage(metadata, preferUrl) {
-  const candidates = [
-    preferUrl,
-    metadata.image_url,
-    metadata.thumb_url,
-    metadata.fallback_url,
-  ].filter((u, i, arr) => u && arr.indexOf(u) === i);
+function uniq(arr) { return arr.filter((u, i, a) => u && a.indexOf(u) === i); }
 
-  for (const url of candidates) {
-    if (await canLoad(url, CONFIG.IMAGE_TIMEOUT_MS)) return url;
-  }
-  return null;
-}
-
-function canLoad(url, timeoutMs) {
+// Load + fully decode an image off-screen so the swap never flashes a half-painted
+// frame. Resolves with the url on success, or null (error/timeout).
+function decodeImage(url, timeoutMs) {
   return new Promise((resolve) => {
     const img = new Image();
     let done = false;
-    const finish = (ok) => { if (!done) { done = true; clearTimeout(t); resolve(ok); } };
-    const t = setTimeout(() => finish(false), timeoutMs);
-    img.onload = () => finish(img.naturalWidth > 0);
-    img.onerror = () => finish(false);
+    const finish = (v) => { if (!done) { done = true; clearTimeout(t); resolve(v); } };
+    const t = setTimeout(() => finish(null), timeoutMs);
     img.decoding = "async";
+    img.onload = async () => {
+      try { if (img.decode) await img.decode(); } catch (_) {}
+      finish(img.naturalWidth > 0 ? url : null);
+    };
+    img.onerror = () => finish(null);
     img.src = url;
   });
 }
 
+async function firstThatDecodes(urls) {
+  for (const u of urls) {
+    const ok = await decodeImage(u, CONFIG.IMAGE_TIMEOUT_MS);
+    if (ok) return ok;
+  }
+  return null;
+}
+
+// Replace the current layer's image in place (used to upgrade thumb -> full).
+function upgradeActiveBg(url) {
+  const el = layers[activeLayer];
+  el.style.backgroundImage = `url("${cssUrl(url)}")`;
+  el.classList.remove("lowres");
+  currentImageUrl = url;
+}
+
 // ── Rendering ────────────────────────────────────────────────────────
-function renderPhoto(metadata, imageUrl) {
+function renderPhoto(metadata, imageUrl, opts = {}) {
   const next = activeLayer === "a" ? "b" : "a";
   const nextEl = layers[next];
   const prevEl = layers[activeLayer];
 
+  nextEl.classList.toggle("lowres", !!opts.lowres);
   nextEl.style.backgroundImage = `url("${cssUrl(imageUrl)}")`;
-  // force reflow so the opacity transition runs
+  // force reflow so the opacity transition + kenburns animation restart cleanly
   void nextEl.offsetWidth;
   nextEl.classList.add("active");
   prevEl.classList.remove("active");
@@ -222,6 +247,12 @@ function updateInfoBar(m) {
   if (secSep) secSep.classList.toggle("hide", !locStr);
 
   setInfoState("visible");
+  // gentle rise-in on each new photo; remove the class so auto-dim can take over
+  infoBar.classList.remove("enter");
+  void infoBar.offsetWidth;
+  infoBar.classList.add("enter");
+  clearTimeout(enterTimer);
+  enterTimer = setTimeout(() => infoBar.classList.remove("enter"), 600);
 }
 
 function setText(id, value) { $(id).textContent = value || ""; }
@@ -291,6 +322,7 @@ function goNext() {
 function renderStored(item) {
   // render without modifying the stack
   const next = activeLayer === "a" ? "b" : "a";
+  layers[next].classList.remove("lowres");
   layers[next].style.backgroundImage = `url("${cssUrl(item.imageUrl)}")`;
   void layers[next].offsetWidth;
   layers[next].classList.add("active");
