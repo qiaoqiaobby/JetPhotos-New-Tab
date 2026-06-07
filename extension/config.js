@@ -9,7 +9,7 @@
 
 export default {
   // Where the metadata JSON lives (Layer 2). No trailing slash.
-  DATA_BASE_URL: "https://YOUR_USERNAME.github.io/jetphotos-data",
+  DATA_BASE_URL: "https://qiaoqiaobby.github.io/jetphotos-data",
 
   // How many photos to silently prefetch in the background after render.
   PREFETCH_COUNT: 3,

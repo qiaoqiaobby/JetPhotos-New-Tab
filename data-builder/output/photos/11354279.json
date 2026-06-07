@@ -1,0 +1,28 @@
+{
+  "id": "11354279",
+  "jetphotos_url": "https://www.jetphotos.com/photo/11354279",
+  "image_url": "https://cdn.jetphotos.com/full/6/1075880_1716278472.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/6/1075880_1716278472.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/6/1075880_1716278472.jpg",
+  "aircraft": {
+    "type": "Boeing 737-8-200 MAX",
+    "registration": "EI-IJM",
+    "airline": "Ryanair"
+  },
+  "photographer": {
+    "name": "Seres23",
+    "profile_url": "https://www.jetphotos.com/photographer/185667"
+  },
+  "location": {
+    "airport": "Budapest Liszt Ferenc",
+    "icao": "LHBP",
+    "iata": "",
+    "country": "Hungary"
+  },
+  "meta": {
+    "category": "narrowbody",
+    "tags": [],
+    "cdn_verified": null,
+    "scraped_at": "2026-06-07T07:23:11Z"
+  }
+}

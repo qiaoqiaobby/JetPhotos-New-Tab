@@ -11,5 +11,9 @@ data-builder/errors.log
 # OS
 .DS_Store
 
+# Saved source pages (inputs only; keep the synthetic _fixture-*.html)
+data-builder/samples/*_files/
+data-builder/samples/[0-9]*.html
+
 # Playwright/test scratch
 .playwright-mcp/
