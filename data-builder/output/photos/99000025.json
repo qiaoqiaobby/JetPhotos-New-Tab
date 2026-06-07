@@ -1,0 +1,29 @@
+{
+  "id": "99000025",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000025",
+  "image_url": "https://cdn.jetphotos.com/full/6/000025_1700000025.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/6/000025_1700000025.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/6/000025_1700000025.jpg",
+  "aircraft": {
+    "type": "Bombardier Global 7500",
+    "registration": "9H-VITA",
+    "airline": "VistaJet"
+  },
+  "photographer": {
+    "name": "Sofia Rossi",
+    "profile_url": "https://www.jetphotos.com/photographer/10025"
+  },
+  "location": {
+    "airport": "Geneva Airport",
+    "icao": "LSGG",
+    "iata": "GVA",
+    "country": "Switzerland"
+  },
+  "meta": {
+    "category": "bizjet",
+    "tags": [],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

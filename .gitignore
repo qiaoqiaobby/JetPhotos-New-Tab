@@ -1,0 +1,15 @@
+# Build / packaging artifacts
+build/
+*.zip
+data-builder/gh-pages/
+
+# Python
+__pycache__/
+*.pyc
+data-builder/errors.log
+
+# OS
+.DS_Store
+
+# Playwright/test scratch
+.playwright-mcp/

@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "JP CDN Test (Phase 0)",
+  "version": "0.0.1",
+  "description": "Throwaway extension to verify JetPhotos CDN images load inside a newtab page.",
+  "chrome_url_overrides": {
+    "newtab": "test.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; img-src https://cdn.jetphotos.com; style-src 'self' 'unsafe-inline'; script-src 'self'"
+  }
+}

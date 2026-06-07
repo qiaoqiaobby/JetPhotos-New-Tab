@@ -1,0 +1,31 @@
+{
+  "id": "99000019",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000019",
+  "image_url": "https://cdn.jetphotos.com/full/1/000019_1700000019.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/1/000019_1700000019.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/1/000019_1700000019.jpg",
+  "aircraft": {
+    "type": "Airbus A330-743L BelugaXL",
+    "registration": "F-GXLG",
+    "airline": "Airbus Transport International"
+  },
+  "photographer": {
+    "name": "Claire Dubois",
+    "profile_url": "https://www.jetphotos.com/photographer/10019"
+  },
+  "location": {
+    "airport": "Toulouse-Blagnac Airport",
+    "icao": "LFBO",
+    "iata": "TLS",
+    "country": "France"
+  },
+  "meta": {
+    "category": "cargo",
+    "tags": [
+      "unique"
+    ],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

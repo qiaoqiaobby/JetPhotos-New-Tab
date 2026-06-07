@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Tab</title>
+  <link rel="stylesheet" href="newtab.css">
+</head>
+<body>
+  <main id="app">
+    <!-- Crossfade layers: background images are set on these by newtab.js -->
+    <div id="photo-container" aria-hidden="true">
+      <div class="photo-layer" id="layer-a"></div>
+      <div class="photo-layer" id="layer-b"></div>
+      <div id="scrim"></div>
+    </div>
+
+    <!-- Placeholder + loading indicator -->
+    <div id="loading-indicator" aria-live="polite">
+      <svg class="plane-mark" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
+        <path d="M2 36 L26 30 L40 12 L46 12 L38 30 L52 28 L58 22 L62 22 L58 32 L62 42 L58 42 L52 36 L38 34 L46 52 L40 52 L26 36 L2 30 Z"/>
+      </svg>
+      <div class="pulse"></div>
+    </div>
+
+    <!-- Controls -->
+    <div id="controls">
+      <button id="fav-btn" class="ctrl-btn" type="button" title="Favorite (F)" aria-label="Favorite this photo">
+        <span class="ic-heart">♥</span>
+      </button>
+      <button id="refresh-btn" class="ctrl-btn" type="button" title="Next photo (Space / →)" aria-label="Show another photo">
+        <span class="ic-refresh">↻</span>
+      </button>
+    </div>
+
+    <!-- Bottom info overlay -->
+    <div id="info-bar" data-state="visible">
+      <div class="info-main">
+        <span class="icon">✈</span>
+        <span id="aircraft-type">—</span>
+        <span class="separator">·</span>
+        <span id="airline"></span>
+        <span class="separator">·</span>
+        <span id="registration"></span>
+      </div>
+      <div class="info-secondary">
+        <span class="icon">📷</span>
+        <a id="photographer" href="#" target="_blank" rel="noopener noreferrer"></a>
+        <span class="separator">·</span>
+        <span id="location"></span>
+      </div>
+      <div class="info-actions">
+        <span class="powered-by">Powered by JetPhotos</span>
+        <a id="view-original" href="#" target="_blank" rel="noopener noreferrer">View original ↗</a>
+      </div>
+    </div>
+
+    <!-- Transient toast (favorite added, errors, etc.) -->
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Subtle keyboard hint, fades out -->
+    <div id="hint">Space / → next · ← prev · F favorite · I info</div>
+  </main>
+
+  <script type="module" src="newtab.js"></script>
+</body>
+</html>

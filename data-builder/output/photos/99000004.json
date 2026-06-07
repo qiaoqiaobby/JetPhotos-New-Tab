@@ -1,0 +1,29 @@
+{
+  "id": "99000004",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000004",
+  "image_url": "https://cdn.jetphotos.com/full/5/000004_1700000004.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/5/000004_1700000004.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/5/000004_1700000004.jpg",
+  "aircraft": {
+    "type": "Airbus A350-1041",
+    "registration": "A7-ANA",
+    "airline": "Qatar Airways"
+  },
+  "photographer": {
+    "name": "Mariam Hassan",
+    "profile_url": "https://www.jetphotos.com/photographer/10004"
+  },
+  "location": {
+    "airport": "Hamad International Airport",
+    "icao": "OTHH",
+    "iata": "DOH",
+    "country": "Qatar"
+  },
+  "meta": {
+    "category": "widebody",
+    "tags": [],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

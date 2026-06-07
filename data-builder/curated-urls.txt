@@ -1,0 +1,44 @@
+# curated-urls.txt — input to scraper.py (one JetPhotos photo URL per line).
+#
+# Lines starting with '#' and blank lines are ignored, so you can group/annotate.
+# Format:  https://www.jetphotos.com/photo/<numeric-id>
+#
+# ⚠️  THE IDS BELOW ARE PLACEHOLDERS for shape/testing only — they are NOT
+#     guaranteed to resolve. Replace them with real photo URLs you have curated
+#     (and have the right to feature). See README "Data & rights" before scraping.
+#
+# Because JetPhotos sits behind Cloudflare (Phase 0 finding: plain requests get
+# HTTP 403), the recommended workflow is:
+#   1) open each curated photo page in your normal browser,
+#   2) Save Page As → data-builder/samples/<id>.html  (or use the browser),
+#   3) run:  python scraper.py --from-html samples/
+# The direct-fetch path (python scraper.py) still works on networks that are not
+# Cloudflare-challenged.
+
+# ── widebody (747 / A380 / 787 / A350) ───────────────────────────────
+https://www.jetphotos.com/photo/11354279
+https://www.jetphotos.com/photo/11354280
+https://www.jetphotos.com/photo/11354281
+https://www.jetphotos.com/photo/11354282
+https://www.jetphotos.com/photo/11354283
+https://www.jetphotos.com/photo/11354284
+https://www.jetphotos.com/photo/11354285
+https://www.jetphotos.com/photo/11354286
+
+# ── narrowbody (737 / A320 family) ───────────────────────────────────
+https://www.jetphotos.com/photo/11354290
+https://www.jetphotos.com/photo/11354291
+https://www.jetphotos.com/photo/11354292
+https://www.jetphotos.com/photo/11354293
+
+# ── retro (Concorde / DC-3 / 707) ────────────────────────────────────
+https://www.jetphotos.com/photo/11354300
+https://www.jetphotos.com/photo/11354301
+https://www.jetphotos.com/photo/11354302
+https://www.jetphotos.com/photo/11354303
+
+# ── military / special (mixed) ───────────────────────────────────────
+https://www.jetphotos.com/photo/11354310
+https://www.jetphotos.com/photo/11354311
+https://www.jetphotos.com/photo/11354312
+https://www.jetphotos.com/photo/11354313

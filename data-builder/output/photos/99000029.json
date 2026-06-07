@@ -1,0 +1,31 @@
+{
+  "id": "99000029",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000029",
+  "image_url": "https://cdn.jetphotos.com/full/1/000029_1700000029.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/1/000029_1700000029.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/1/000029_1700000029.jpg",
+  "aircraft": {
+    "type": "Sikorsky S-92A",
+    "registration": "G-MCGY",
+    "airline": "Bristow Helicopters"
+  },
+  "photographer": {
+    "name": "Iain Ross",
+    "profile_url": "https://www.jetphotos.com/photographer/10029"
+  },
+  "location": {
+    "airport": "Aberdeen Airport",
+    "icao": "EGPD",
+    "iata": "ABZ",
+    "country": "United Kingdom"
+  },
+  "meta": {
+    "category": "helicopter",
+    "tags": [
+      "offshore"
+    ],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

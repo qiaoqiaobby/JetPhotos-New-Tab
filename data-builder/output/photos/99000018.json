@@ -1,0 +1,29 @@
+{
+  "id": "99000018",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000018",
+  "image_url": "https://cdn.jetphotos.com/full/9/000018_1700000018.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/9/000018_1700000018.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/9/000018_1700000018.jpg",
+  "aircraft": {
+    "type": "Boeing 747-8F",
+    "registration": "LX-VCB",
+    "airline": "Cargolux"
+  },
+  "photographer": {
+    "name": "Pierre Muller",
+    "profile_url": "https://www.jetphotos.com/photographer/10018"
+  },
+  "location": {
+    "airport": "Luxembourg Findel Airport",
+    "icao": "ELLX",
+    "iata": "LUX",
+    "country": "Luxembourg"
+  },
+  "meta": {
+    "category": "cargo",
+    "tags": [],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

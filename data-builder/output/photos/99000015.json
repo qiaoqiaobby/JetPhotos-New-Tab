@@ -1,0 +1,31 @@
+{
+  "id": "99000015",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000015",
+  "image_url": "https://cdn.jetphotos.com/full/6/000015_1700000015.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/6/000015_1700000015.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/6/000015_1700000015.jpg",
+  "aircraft": {
+    "type": "Boeing F/A-18E Super Hornet",
+    "registration": "165663",
+    "airline": "US Navy Blue Angels"
+  },
+  "photographer": {
+    "name": "Rachel Adams",
+    "profile_url": "https://www.jetphotos.com/photographer/10015"
+  },
+  "location": {
+    "airport": "NAS Pensacola",
+    "icao": "KNPA",
+    "iata": "NPA",
+    "country": "United States"
+  },
+  "meta": {
+    "category": "military",
+    "tags": [
+      "airshow"
+    ],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "99000022",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000022",
+  "image_url": "https://cdn.jetphotos.com/full/3/000022_1700000022.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/3/000022_1700000022.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/3/000022_1700000022.jpg",
+  "aircraft": {
+    "type": "Douglas DC-3",
+    "registration": "N431HM",
+    "airline": "Historic Flight"
+  },
+  "photographer": {
+    "name": "Nancy Reed",
+    "profile_url": "https://www.jetphotos.com/photographer/10022"
+  },
+  "location": {
+    "airport": "Wittman Regional Airport",
+    "icao": "KOSH",
+    "iata": "OSH",
+    "country": "United States"
+  },
+  "meta": {
+    "category": "retro",
+    "tags": [
+      "historic"
+    ],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

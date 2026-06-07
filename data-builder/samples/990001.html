@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+  FIXTURE — synthetic JetPhotos photo-page structure.
+  This is NOT a live capture (jetphotos.com is Cloudflare-gated, HTTP 403 to bots).
+  It models the DOM that PARSING_GUIDE.md documents, so the parser can be exercised
+  end-to-end. To create a REAL sample: open a photo page in your browser and
+  "Save Page As (HTML only)" into this folder as <id>.html.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Boeing 747-830 D-ABYA Lufthansa Photo by Jane Doe | 990001 | JetPhotos</title>
+  <link rel="canonical" href="https://www.jetphotos.com/photo/990001">
+  <meta property="og:url" content="https://www.jetphotos.com/photo/990001">
+  <meta property="og:title" content="Boeing 747-830 D-ABYA Lufthansa Photo by Jane Doe | 990001 | JetPhotos">
+  <meta property="og:image" content="https://cdn.jetphotos.com/full/6/123456_1700000000.jpg">
+  <meta property="og:type" content="article">
+</head>
+<body>
+  <main class="photo-page">
+    <div class="large-photo">
+      <img class="large-photo__img" src="https://cdn.jetphotos.com/full/6/123456_1700000000.jpg"
+           alt="Boeing 747-830 D-ABYA Lufthansa">
+    </div>
+
+    <section class="header__details">
+      <ul class="header__info">
+        <li>Aircraft: <a href="/aircraft/boeing-747-8">Boeing 747-830</a></li>
+        <li>Airline: <a href="/airline/lufthansa">Lufthansa</a></li>
+        <li>Reg: <a href="/registration/D-ABYA">D-ABYA</a></li>
+        <li>C/N: 37827</li>
+      </ul>
+      <ul class="additional-info">
+        <li>Photographer: <a href="/photographer/12345">Jane Doe</a></li>
+        <li>Location: <a href="/airport/germany/frankfurt/EDDF">Frankfurt Airport (FRA / EDDF), Germany</a></li>
+        <li>Date: 2024-08-12</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

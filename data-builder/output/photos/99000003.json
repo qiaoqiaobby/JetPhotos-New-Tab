@@ -1,0 +1,31 @@
+{
+  "id": "99000003",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000003",
+  "image_url": "https://cdn.jetphotos.com/full/4/000003_1700000003.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/4/000003_1700000003.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/4/000003_1700000003.jpg",
+  "aircraft": {
+    "type": "Boeing 787-9 Dreamliner",
+    "registration": "JA873A",
+    "airline": "All Nippon Airways"
+  },
+  "photographer": {
+    "name": "Kenji Sato",
+    "profile_url": "https://www.jetphotos.com/photographer/10003"
+  },
+  "location": {
+    "airport": "Tokyo Haneda Airport",
+    "icao": "RJTT",
+    "iata": "HND",
+    "country": "Japan"
+  },
+  "meta": {
+    "category": "widebody",
+    "tags": [
+      "takeoff"
+    ],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "99000011",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000011",
+  "image_url": "https://cdn.jetphotos.com/full/2/000011_1700000011.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/2/000011_1700000011.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/2/000011_1700000011.jpg",
+  "aircraft": {
+    "type": "Airbus A321-271NX",
+    "registration": "N501DN",
+    "airline": "Delta Air Lines"
+  },
+  "photographer": {
+    "name": "Marcus Lee",
+    "profile_url": "https://www.jetphotos.com/photographer/10011"
+  },
+  "location": {
+    "airport": "Hartsfield-Jackson Atlanta Airport",
+    "icao": "KATL",
+    "iata": "ATL",
+    "country": "United States"
+  },
+  "meta": {
+    "category": "narrowbody",
+    "tags": [],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

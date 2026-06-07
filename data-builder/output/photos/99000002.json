@@ -1,0 +1,31 @@
+{
+  "id": "99000002",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000002",
+  "image_url": "https://cdn.jetphotos.com/full/3/000002_1700000002.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/3/000002_1700000002.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/3/000002_1700000002.jpg",
+  "aircraft": {
+    "type": "Airbus A380-861",
+    "registration": "A6-EOA",
+    "airline": "Emirates"
+  },
+  "photographer": {
+    "name": "Sam Carter",
+    "profile_url": "https://www.jetphotos.com/photographer/10002"
+  },
+  "location": {
+    "airport": "Dubai International Airport",
+    "icao": "OMDB",
+    "iata": "DXB",
+    "country": "United Arab Emirates"
+  },
+  "meta": {
+    "category": "widebody",
+    "tags": [
+      "sunset"
+    ],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

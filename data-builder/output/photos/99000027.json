@@ -1,0 +1,32 @@
+{
+  "id": "99000027",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000027",
+  "image_url": "https://cdn.jetphotos.com/full/8/000027_1700000027.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/8/000027_1700000027.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/8/000027_1700000027.jpg",
+  "aircraft": {
+    "type": "Airbus A320-214",
+    "registration": "OO-SNF",
+    "airline": "Brussels Airlines"
+  },
+  "photographer": {
+    "name": "Lucas Peeters",
+    "profile_url": "https://www.jetphotos.com/photographer/10027"
+  },
+  "location": {
+    "airport": "Brussels Airport",
+    "icao": "EBBR",
+    "iata": "BRU",
+    "country": "Belgium"
+  },
+  "meta": {
+    "category": "special_livery",
+    "tags": [
+      "tribute",
+      "livery"
+    ],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}

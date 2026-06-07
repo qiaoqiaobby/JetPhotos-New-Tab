@@ -1,0 +1,31 @@
+{
+  "id": "99000030",
+  "jetphotos_url": "https://www.jetphotos.com/photo/99000030",
+  "image_url": "https://cdn.jetphotos.com/full/1/000030_1700000030.jpg",
+  "thumb_url": "https://cdn.jetphotos.com/400/1/000030_1700000030.jpg",
+  "fallback_url": "https://cdn.jetphotos.com/200/1/000030_1700000030.jpg",
+  "aircraft": {
+    "type": "Cessna 172S Skyhawk",
+    "registration": "N172SP",
+    "airline": "Private"
+  },
+  "photographer": {
+    "name": "Pat Morgan",
+    "profile_url": "https://www.jetphotos.com/photographer/10030"
+  },
+  "location": {
+    "airport": "Palo Alto Airport",
+    "icao": "KPAO",
+    "iata": "PAO",
+    "country": "United States"
+  },
+  "meta": {
+    "category": "other",
+    "tags": [
+      "general_aviation"
+    ],
+    "cdn_verified": false,
+    "scraped_at": "2026-06-06T00:00:00Z",
+    "_sample": true
+  }
+}
