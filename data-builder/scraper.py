@@ -133,6 +133,48 @@ def _link_text(soup, href_contains: str) -> tuple[str, str]:
     return a.get_text(strip=True), a.get("href", "")
 
 
+def _first_link_text(soup, href_contains: str) -> str:
+    return _link_text(soup, href_contains)[0]
+
+
+def _parse_og_title(title: str) -> dict:
+    """JetPhotos og:title is 'REG | TYPE | AIRLINE | PHOTOGRAPHER | JetPhotos'.
+    Returns whatever of {reg,type,airline,photographer} can be inferred."""
+    if not title:
+        return {}
+    parts = [p.strip() for p in title.split("|") if p.strip()]
+    if parts and parts[-1].lower().startswith("jetphotos"):
+        parts = parts[:-1]
+    if len(parts) >= 4:
+        return {"reg": parts[0], "type": parts[1], "airline": parts[2], "photographer": parts[3]}
+    if len(parts) == 3:
+        return {"reg": parts[0], "type": parts[1], "photographer": parts[2]}
+    if len(parts) == 2:
+        return {"type": parts[0], "photographer": parts[1]}
+    return {"type": parts[0]} if parts else {}
+
+
+def _clean_reg(s: str) -> str:
+    """'EI-IJM photos' -> 'EI-IJM'."""
+    return re.sub(r"\s+photos?$", "", s or "", flags=re.IGNORECASE).strip()
+
+
+def _photographer_href(soup) -> str:
+    """Pick the photo author's profile link. Prefer the generic 'Profile'/'Photos'
+    buttons (which point at the author's numeric id); fall back to the first
+    numeric /photographer/<id> link."""
+    fallback = None
+    for a in soup.find_all("a", href=lambda h: h and "/photographer/" in h):
+        m = re.search(r"/photographer/(\d+)", a.get("href", ""))
+        if not m:
+            continue
+        if a.get_text(strip=True) in ("Profile", "Photos"):
+            return f"https://www.jetphotos.com/photographer/{m.group(1)}"
+        if fallback is None:
+            fallback = m.group(1)
+    return f"https://www.jetphotos.com/photographer/{fallback}" if fallback else ""
+
+
 def parse_photo_html(html: str, url: str = "") -> dict:
     """
     Extract a photo record from a JetPhotos photo-page HTML string.
@@ -166,21 +208,19 @@ def parse_photo_html(html: str, url: str = "") -> dict:
         img = m.group(0) if m else ""
     sizes = derive_cdn_sizes(img) if img else {"image_url": "", "thumb_url": "", "fallback_url": ""}
 
-    # Semantic links
-    aircraft_type, _ = _link_text(soup, "/aircraft/")
-    airline, _ = _link_text(soup, "/airline/")
-    registration, _ = _link_text(soup, "/registration/")
-    photographer, photographer_href = _link_text(soup, "/photographer/")
-    airport, airport_href = _link_text(soup, "/airport/")
-
-    # Fallback: parse the og:title — typically "Type Reg Airline Photo by Name | id"
+    # og:title is the most reliable source: "REG | TYPE | AIRLINE | PHOTOGRAPHER | JetPhotos"
     og_title = _meta(soup, "og:title") or (soup.title.get_text() if soup.title else "")
-    if not aircraft_type and og_title:
-        aircraft_type = re.split(r"\s+(?:Photo|Aviation Photo|\|)", og_title)[0].strip()
-    if not photographer and og_title:
-        mph = re.search(r"[Pp]hoto by ([^|]+?)\s*(?:\||$)", og_title)
-        if mph:
-            photographer = mph.group(1).strip()
+    t = _parse_og_title(og_title)
+
+    # Type/airline: prefer semantic links, fall back to title.
+    aircraft_type = _first_link_text(soup, "/aircraft/") or t.get("type", "")
+    airline = _first_link_text(soup, "/airline/") or t.get("airline", "")
+    # Registration: title is clean; link text carries a " photos" suffix to strip.
+    registration = t.get("reg") or _clean_reg(_first_link_text(soup, "/registration/"))
+    # Photographer name comes from the title (the /photographer/ link text is just "Profile").
+    photographer = t.get("photographer") or ""
+    photographer_href = _photographer_href(soup)
+    airport, _ = _link_text(soup, "/airport/")
 
     # Definition-list fallback (label/value rows) for fields still missing.
     if not (aircraft_type and airline and registration and airport):
@@ -190,7 +230,7 @@ def parse_photo_html(html: str, url: str = "") -> dict:
         registration = registration or kv.get("reg", kv.get("registration", ""))
         airport = airport or kv.get("location", kv.get("airport", ""))
 
-    icao, iata, country = _split_airport(airport)
+    airport_name, icao, iata, country = _split_airport(airport)
 
     rec = {
         "id": pid or "",
@@ -208,7 +248,7 @@ def parse_photo_html(html: str, url: str = "") -> dict:
             "profile_url": _abs_url(photographer_href),
         },
         "location": {
-            "airport": airport,
+            "airport": airport_name,
             "icao": icao,
             "iata": iata,
             "country": country,
@@ -238,17 +278,25 @@ def _scan_label_value_pairs(soup) -> dict:
     return pairs
 
 
-def _split_airport(airport: str) -> tuple[str, str, str]:
-    """Pull ICAO/IATA/country out of an airport string when present, e.g.
-    'Frankfurt Airport (FRA / EDDF), Germany'."""
+def _split_airport(airport: str):
+    """Parse an airport string into (name, icao, iata, country). Handles both
+    'Frankfurt Airport (FRA / EDDF), Germany' and 'Budapest Liszt Ferenc - LHBP, Hungary'."""
     icao = iata = country = ""
     m = re.search(r"\(([A-Z]{3})\s*/\s*([A-Z]{4})\)", airport)
     if m:
         iata, icao = m.group(1), m.group(2)
-    mc = re.search(r",\s*([A-Za-z .'-]+)$", airport)
+    if not icao:
+        m2 = re.search(r"[-–]\s*([A-Z]{4})\b", airport)
+        if m2:
+            icao = m2.group(1)
+    mc = re.search(r",\s*([A-Za-z .'\-]+)\s*$", airport)
     if mc:
         country = mc.group(1).strip()
-    return icao, iata, country
+    # Display name: drop the ' - ICAO' / '(...)' / ', country' decorations.
+    name = re.sub(r"\s*[-–]\s*[A-Z]{4}\b.*$", "", airport)
+    name = re.sub(r"\s*\([A-Z/ ]+\).*$", "", name)
+    name = re.sub(r",\s*[A-Za-z .'\-]+\s*$", "", name).strip()
+    return (name or airport), icao, iata, country
 
 
 def _abs_url(href: str) -> str:

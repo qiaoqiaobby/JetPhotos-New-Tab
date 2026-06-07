@@ -231,8 +231,9 @@ function updateInfoBar(m) {
     photographerEl.setAttribute("aria-disabled", "true");
   }
 
+  const code = loc.iata || loc.icao;
   const locStr = loc.airport
-    ? loc.airport + (loc.iata ? ` (${loc.iata})` : "")
+    ? loc.airport + (code ? ` (${code})` : "")
     : (loc.country || "");
   setText("location", locStr);
 
